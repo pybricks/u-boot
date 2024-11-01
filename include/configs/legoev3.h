@@ -49,6 +49,11 @@
  */
 #define LINUX_BOOT_PARAM_ADDR	(PHYS_SDRAM_1 + 0x100)
 #define CFG_EXTRA_ENV_SETTINGS \
+	/* Pybricks hack - load bare-metal firmware blob and run it. */ \
+	"pybricksboot=sf probe 0; " \
+		"sf read ${loadaddr} 0x50000 0x100000; " \
+		"env set autoboot yes; " \
+		"bootm ${loadaddr}\0" \
 	"bootenvfile=uEnv.txt\0" \
 	"fdtfile=da850-lego-ev3.dtb\0" \
 	"memsize=64M\0" \
