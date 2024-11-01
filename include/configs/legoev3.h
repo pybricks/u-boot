@@ -96,7 +96,6 @@
 			"fi; " \
 		"fi; " \
 	"fi; "\
-	"run flashargs; " \
 	"run flashboot"
 #define CONFIG_EXTRA_ENV_SETTINGS \
 	"bootenvfile=uEnv.txt\0" \
@@ -120,15 +119,11 @@
 		"root=/dev/ram0 rw rootfstype=squashfs console=${console} " \
 		"${optargs}\0" \
 	"flashboot=sf probe 0; " \
-		"sf read ${fdtaddr} 0x40000 0x10000; " \
-		"sf read ${loadaddr} 0x50000 0x400000; " \
-		"sf read ${filesysaddr} 0x450000 0xA00000; " \
-		"run fdtfixup; " \
+		"sf read ${loadaddr} 0x50000 0x100000; " \
 		"run fdtboot\0" \
 	"loadimage=fatload mmc 0 ${loadaddr} uImage\0" \
 	"loadfdt=fatload mmc 0 ${fdtaddr} ${fdtfile}\0" \
-	"fdtfixup=fdt addr ${fdtaddr}; fdt resize; fdt chosen\0" \
-	"fdtboot=bootm ${loadaddr} - ${fdtaddr}\0" \
+	"fdtboot=bootm ${loadaddr}\0" \
 	"loadbootscr=fatload mmc 0 ${bootscraddr} boot.scr\0" \
 	"bootscript=source ${bootscraddr}\0"
 

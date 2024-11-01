@@ -261,7 +261,7 @@ const struct lpsc_resource lpsc[] = {
 const int lpsc_size = ARRAY_SIZE(lpsc);
 
 #ifndef CONFIG_DA850_EVM_MAX_CPU_CLK
-#define CONFIG_DA850_EVM_MAX_CPU_CLK	300000000
+#define CONFIG_DA850_EVM_MAX_CPU_CLK	456000000
 #endif
 
 #define REV_AM18X_EVM		0x100
