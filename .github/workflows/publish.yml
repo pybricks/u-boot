@@ -1,0 +1,32 @@
+name: Build and Publish
+
+on:
+  push:
+    tags:
+      - pybricks/v*
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y gcc-arm-none-eabi
+
+      - name: Build
+        env:
+          ARCH: arm
+          CROSS_COMPILE: arm-none-eabi-
+        run: |
+              make legoev3_defconfig
+              make
+
+      - name: Publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ github.ref_name }}
+        run: |
+          gh release create "$tag" u-boot.bin \
+              --repo="$GITHUB_REPOSITORY" \
+              --generate-notes
