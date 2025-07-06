@@ -20,7 +20,7 @@ jobs:
           CROSS_COMPILE: arm-none-eabi-
         run: |
               make legoev3_defconfig
-              make
+              make LOCALVERSION="-$(echo "${{ github.ref_name }}" | sed 's|/v|-|')"
 
       - name: Publish
         env:
